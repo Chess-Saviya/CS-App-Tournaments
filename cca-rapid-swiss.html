@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCA Rapid Swiss Battle - 25</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yaldevi:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- General Reset & Layout --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Utility Class for Sinhala Text - UPDATED TO YALDEVI */
+        .sinhala-text {
+            font-family: 'Yaldevi', sans-serif;
+        }
+
+        /* --- Typography --- */
+        h1 {
+            color: #006400; /* CHANGED TO GREEN */
+            margin-top: 0;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .highlight-text {
+            color: #6a1b9a;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+
+        /* --- Buttons --- */
+        .cta-button {
+            display: inline-block;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #006400, #004d00);
+            border: none;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 15px 40px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 100, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .cta-button span {
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .cta-button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 100, 0, 0.4);
+        }
+
+        .cta-button:hover span {
+            padding-right: 25px;
+        }
+
+        .cta-button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        /* --- COUNTDOWN SECTION --- */
+        #countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .time-box {
+            background-color: #008f35;
+            color: white;
+            width: 75px;
+            height: 75px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .time-val {
+            font-size: 1.8rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* --- TOURNAMENT STATUS --- */
+        #tournament-status {
+            display: none;
+            padding: 15px 20px;
+            margin: 20px 0 30px 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-width: 3px;
+            border-style: solid;
+            border-radius: 8px;
+            text-transform: uppercase;
+            width: 80%;
+        }
+
+        .status-started {
+            color: #008000;
+            border-color: #008000;
+        }
+
+        .status-finished {
+            color: #000000;
+            border-color: #000000;
+        }
+
+        /* --- Details List --- */
+        .details-box {
+            background-color: #f9f9f9;
+            border-left: 5px solid #006400;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .details-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .details-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .details-list li:last-child {
+            border-bottom: none;
+        }
+
+        .details-list strong {
+            color: #000;
+        }
+
+        /* --- Progress Bars Section --- */
+        .skills-section {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .skills-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .skill-container {
+            margin-bottom: 15px;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .progress-bar-bg {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 10px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            background-color: #006400;
+            width: 0;
+            
+            /* Animation Logic */
+            background-image: linear-gradient(
+                45deg, 
+                rgba(255, 255, 255, 0.15) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255, 255, 255, 0.15) 50%, 
+                rgba(255, 255, 255, 0.15) 75%, 
+                transparent 75%, 
+                transparent
+            );
+            background-size: 20px 20px;
+            animation: loadWidth 1.5s ease-out forwards, moveStripes 1s linear infinite;
+        }
+
+        @keyframes loadWidth {
+            from { width: 0; }
+            to { width: var(--target-width); }
+        }
+
+        @keyframes moveStripes {
+            0% { background-position: 20px 0; }
+            100% { background-position: 0 0; }
+        }
+
+        /* --- Images --- */
+        .custom-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        /* --- Footer Note --- */
+        .footer-note {
+            font-size: 12px;
+            /* CHANGED TO BLUE THEME */
+            color: #0062FF; 
+            background-color: #cce5ff;
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* --- Bottom Spacer --- */
+        .bottom-spacer {
+            height: 3rem;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>CCA Rapid Swiss Battle - 25</h1>
+
+        <p class="sinhala-text">Tournament Details පිටුවේ ඇති උපදෙස් අනුව Lichess හි ලියාපදිංචි වී අපගේ Lichess Team එකට සම්බන්ධ වූ ඔබට ජනවාරි මස 04 වන ඉරිදා පැවැත්වෙන <strong>CCA Rapid Swiss Battle - 25</strong> තරඟය සඳහා සහභාගී වෙන්න පුළුවන්!</p>
+        
+        <a href="https://lichess.org/swiss/TyHQP0qg" id="join-cta" class="cta-button" target="_blank"><span>Join Now </span></a>
+
+        <div id="countdown-container">
+            <div class="time-box">
+                <span class="time-val" id="days">00</span>
+                <span class="time-label">Days</span>
+            </div>
+            <div class="time-box">
+                <span class="time-val" id="hours">00</span>
+                <span class="time-label">Hours</span>
+            </div>
+            <div class="time-box">
+                <span class="time-val" id="mins">00</span>
+                <span class="time-label">Mins</span>
+            </div>
+            <div class="time-box">
+                <span class="time-val" id="secs">00</span>
+                <span class="time-label">Secs</span>
+            </div>
+        </div>
+
+        <div id="tournament-status">
+            </div>
+
+        <div class="details-box">
+            <ul class="details-list">
+                <li><span class="sinhala-text">දිනය</span> <strong>2026 / 01 / 04</strong></li>
+                <li><span class="sinhala-text">වේලාව</span> <strong>සවස 6.00</strong></li>
+                <li><span class="sinhala-text">තරඟ වට ගණන</span> <strong>05</strong></li>
+                <li><span class="sinhala-text">කාලය (Time Control)</span> <strong>10min + 5sec (Rapid)</strong></li>
+                <li><span class="sinhala-text">වට 2ක් අතර කාලය</span> <strong>01 min</strong></li>
+            </ul>
+        </div>
+
+        <img src="https://imgur.com/61C0fXC.jpg" alt="Chess Tournament" class="custom-image">
+
+        <div class="skills-section">
+            <div class="skills-title">Key Chess Skills (Rapid)</div>
+
+            <div class="skill-container">
+                <div class="skill-header">
+                    <span>Opening Knowledge</span>
+                    <span>70%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="--target-width: 70%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-container">
+                <div class="skill-header">
+                    <span>Positional Play</span>
+                    <span>60%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="--target-width: 60%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-container">
+                <div class="skill-header">
+                    <span>Deep Calculation</span>
+                    <span>80%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="--target-width: 80%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-container">
+                <div class="skill-header">
+                    <span>Endgame Mastery</span>
+                    <span>50%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="--target-width: 50%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <p class="footer-note sinhala-text">
+            <em>(මෙම Online චෙස් තරඟාවලි ඔබගේ චෙස් පුහුණුව සඳහා සෑම සතියකම ඉරිදා දින පවත්වනු ලැබේ.)</em>
+        </p>
+
+        <div class="bottom-spacer"></div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        
+        // SET TARGET: Jan 04, 2026 6:00 PM (18:00)
+        const tournamentStartDate = new Date("Jan 04, 2026 18:00:00").getTime(); 
+
+        const tournamentDuration = 2 * 60 * 60 * 1000; // 2 Hours in milliseconds
+
+        const countdownContainer = document.getElementById("countdown-container");
+        const statusContainer = document.getElementById("tournament-status");
+        // Get the Join button element
+        const joinButton = document.getElementById("join-cta");
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = tournamentStartDate - now;
+
+            if (distance > 0) {
+                // --- COUNTDOWN ACTIVE ---
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+                document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+                document.getElementById("mins").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById("secs").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+            
+            } else {
+                // --- COUNTDOWN ENDED ---
+                countdownContainer.style.display = "none";
+                statusContainer.style.display = "block";
+
+                const timeSinceStart = now - tournamentStartDate;
+
+                if (timeSinceStart < tournamentDuration) {
+                    // Tournament Started (Green)
+                    statusContainer.innerHTML = "Tournament Started";
+                    statusContainer.className = "status-started"; 
+                } else {
+                    // Tournament Finished (Black)
+                    statusContainer.innerHTML = "Tournament Finished";
+                    statusContainer.className = "status-finished";
+                    
+                    // --- NEW LOGIC: Hide the Join Button ---
+                    if(joinButton) {
+                        joinButton.style.display = "none";
+                    }
+
+                    clearInterval(x);
+                }
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
