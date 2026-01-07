@@ -62,7 +62,7 @@
             backdrop-filter: blur(10px);
             position: relative;
             z-index: 2;
-            margin-bottom: 3rem; /* 3rem bottom space */
+            margin-bottom: 3rem;
             transition: transform 0.1s ease-out;
         }
 
@@ -224,73 +224,156 @@
     </div>
 
     <script>
-        // Celebration "Dust" Logic
+        /**
+         * MODERN CONFETTI ENGINE
+         * Features: Gravity, Drag, 3D Rotation (Flip), varied shapes
+         */
         const canvas = document.getElementById('celebration-canvas');
         const ctx = canvas.getContext('2d');
+        
+        let width = window.innerWidth;
+        let height = window.innerHeight;
         let particles = [];
-        let animationActive = true;
-        const colors = ['#006400', '#E60523', '#FFD700', '#0016DE', '#32CD32'];
-
+        const colors = ['#006400', '#E60523', '#FFD700', '#0016DE', '#32CD32', '#FF7300'];
+        
+        // Resize handler
         function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
         }
         window.addEventListener('resize', resize);
         resize();
 
         class Particle {
             constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height - canvas.height;
-                this.size = Math.random() * 6 + 3;
-                this.speedY = Math.random() * 4 + 2;
-                this.speedX = Math.random() * 3 - 1.5;
+                // Initialize at bottom center for "burst" effect
+                this.x = width / 2;
+                this.y = height + 10;
+                
+                // Random spread velocity
+                const velocityMultiplier = Math.random() * 30 + 25; // Power of the burst
+                const angle = (Math.random() * 120 + 210) * (Math.PI / 180); // Arc from bottom
+                
+                this.vx = Math.cos(angle) * velocityMultiplier * 0.5; // Horizontal spread
+                this.vy = Math.sin(angle) * velocityMultiplier;       // Upward force
+
+                this.gravity = 0.25;
+                this.drag = 0.96; // Air resistance
+
+                // Shape properties
+                this.size = Math.random() * 8 + 6;
                 this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.shape = Math.random() > 0.5 ? 'circle' : 'rect';
+
+                // Rotation/Flutter properties
                 this.rotation = Math.random() * 360;
-                this.rotationSpeed = Math.random() * 8 - 4;
-                this.opacity = Math.random() * 0.7 + 0.3;
+                this.rotationSpeed = (Math.random() - 0.5) * 10;
+                
+                // 3D Flip effect variables
+                this.tilt = Math.random() * 10;
+                this.tiltAngle = Math.random() * Math.PI;
+                this.tiltAngleSpeed = Math.random() * 0.1 + 0.05;
+                
+                this.opacity = 1;
+                this.life = 0;
+                this.maxLife = 500; // Frames to live
             }
+
             update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
+                // Physics
+                this.vx *= this.drag;
+                this.vy *= this.drag;
+                this.vy += this.gravity;
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // 3D Flutter logic
+                this.tiltAngle += this.tiltAngleSpeed;
+                this.tilt = Math.sin(this.tiltAngle) * 15;
+
+                // Simple rotation
                 this.rotation += this.rotationSpeed;
-                if (this.y > canvas.height) this.reset();
+
+                // Screen wrapping (sides only)
+                if (this.x < -20) this.x = width + 20;
+                if (this.x > width + 20) this.x = -20;
+
+                // Slow fade out at end of life
+                this.life++;
+                if (this.life > this.maxLife - 100) {
+                    this.opacity -= 0.01;
+                }
             }
+
             draw() {
+                if (this.opacity <= 0) return;
+
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation * Math.PI / 180);
+                
+                // Scale Y to simulate 3D flipping
+                const flipScale = Math.cos(this.tiltAngle);
+                ctx.scale(1, flipScale);
+
                 ctx.globalAlpha = this.opacity;
                 ctx.fillStyle = this.color;
-                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+
+                if (this.shape === 'circle') {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                }
+
                 ctx.restore();
             }
         }
 
-        function initParticles() {
-            for (let i = 0; i < 150; i++) particles.push(new Particle());
+        // Initialize Burst
+        function initConfetti() {
+            particles = [];
+            // Create 200 particles
+            for (let i = 0; i < 200; i++) {
+                particles.push(new Particle());
+            }
         }
 
         function animate() {
-            if (!animationActive) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                return;
+            ctx.clearRect(0, 0, width, height);
+            
+            let activeParticles = 0;
+            particles.forEach(p => {
+                if (p.opacity > 0) {
+                    p.update();
+                    p.draw();
+                    activeParticles++;
+                }
+            });
+
+            if (activeParticles > 0) {
+                requestAnimationFrame(animate);
             }
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
         }
 
-        initParticles();
+        // Start animation
+        initConfetti();
         animate();
 
-        // Stop animation after 3 seconds as requested
-        setTimeout(() => { animationActive = false; }, 3000);
+        // Optional: Re-trigger burst on click (adds interactivity)
+        document.addEventListener('mousedown', (e) => {
+            // Only retrigger if clicking background, not buttons
+            if(e.target.tagName !== 'A') {
+                initConfetti();
+                animate();
+            }
+        });
 
-        // Subtle 3D Tilt Effect
+        // 3D Tilt Effect for Card (Existing Logic)
         const card = document.getElementById('main-card');
         document.addEventListener('mousemove', (e) => {
             const { left, top, width, height } = card.getBoundingClientRect();
@@ -303,5 +386,4 @@
         });
     </script>
 </body>
-
 </html>
