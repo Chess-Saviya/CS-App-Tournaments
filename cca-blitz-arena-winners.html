@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCA Monthly Blitz Arena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF7300;
+            --primary-dark: #C95E16;
+            --accent-color: #FFD700;
+            --bg-gradient: linear-gradient(135deg, #f8f9ff 0%, #eef2ff 100%);
+            --glass-bg: rgba(255, 255, 255, 0.92);
+            --card-shadow: 0 20px 60px rgba(0, 100, 0, 0.08);
+            --card-border: 1px solid rgba(0, 100, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            color: #222;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Decorative background glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 100, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .container {
+            background: var(--glass-bg);
+            width: 100%;
+            max-width: 680px;
+            border-radius: 32px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            border: var(--card-border);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 2;
+            margin-bottom: 3rem; /* 3rem bottom space */
+            transition: transform 0.1s ease-out;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.15) 0%, rgba(255, 140, 0, 0.08) 100%);
+            color: var(--primary-dark);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 100, 0, 0.1);
+        }
+
+        .badge i {
+            color: var(--accent-color);
+        }
+
+        h1 {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .results-image-container {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2.5rem;
+            border: 4px solid #fff;
+            position: relative;
+        }
+
+        .results-image {
+            width: 100%;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .results-image:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            padding: 18px 48px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 30px rgba(0, 100, 0, 0.25);
+            border: none;
+            cursor: pointer;
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 100, 0, 0.35);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover i {
+            transform: translateX(5px);
+        }
+
+        .category-icon {
+            width: 180px;
+            height: auto;
+            margin-top: 1rem;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0, 100, 0, 0.15));
+            transition: transform 0.5s ease;
+        }
+
+        .category-icon:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        /* Celebration Canvas */
+        #celebration-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; max-width: 95%; }
+            h1 { font-size: 2rem; line-height: 3rem; }
+            .cta-button { padding: 16px 36px; font-size: 1rem; }
+            .category-icon { width: 140px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="celebration-canvas"></canvas>
+
+    <div class="container" id="main-card">
+        <div class="badge">
+            <i class="fas fa-trophy"></i>
+            <span>Tournament Winners</span>
+        </div>
+
+        <h1>CCA Monthly Blitz Arena - DECEMBER</h1>
+
+        <div class="results-image-container">
+            <img src="https://i.postimg.cc/PqqHCbHP/Blitz-Arena-Winners-(1).jpg" alt="Tournament Results" class="results-image">
+        </div>
+
+        <a href="https://lichess.org/tournament/rSuQms5h" target="_blank" class="cta-button">
+            View Full Results
+            <i class="fas fa-arrow-right"></i>
+        </a>
+
+        <div>
+            <img src="https://i.postimg.cc/X7vJTVft/Blitz_Arena_Winners_Image.png" alt="Tournament Category" class="category-icon">
+        </div>
+    </div>
+
+    <script>
+        // Celebration "Dust" Logic
+        const canvas = document.getElementById('celebration-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationActive = true;
+        const colors = ['#006400', '#E60523', '#FFD700', '#0016DE', '#32CD32'];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.size = Math.random() * 6 + 3;
+                this.speedY = Math.random() * 4 + 2;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 8 - 4;
+                this.opacity = Math.random() * 0.7 + 0.3;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotationSpeed;
+                if (this.y > canvas.height) this.reset();
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < 150; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            if (!animationActive) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                return;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+
+        // Stop animation after 3 seconds as requested
+        setTimeout(() => { animationActive = false; }, 3000);
+
+        // Subtle 3D Tilt Effect
+        const card = document.getElementById('main-card');
+        document.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = card.getBoundingClientRect();
+            const x = (e.clientX - left) / width - 0.5;
+            const y = (e.clientY - top) / height - 0.5;
+            card.style.transform = `perspective(1000px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg)`;
+        });
+        document.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+        });
+    </script>
+</body>
+
+</html>
