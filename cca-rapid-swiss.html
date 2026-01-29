@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CCA Rapid Swiss Battle 2026</title>
+    <title>CCA Rapid Swiss Battle</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yaldevi:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -34,14 +34,14 @@
             align-items: center;
         }
 
-        /* Utility Class for Sinhala Text - UPDATED TO YALDEVI */
+        /* Utility Class for Sinhala Text */
         .sinhala-text {
             font-family: 'Yaldevi', sans-serif;
         }
 
         /* --- Typography --- */
         h1 {
-            color: #006400; /* CHANGED TO GREEN */
+            color: #006400;
             margin-top: 0;
             font-size: 32px;
             text-transform: uppercase;
@@ -54,13 +54,6 @@
             margin-bottom: 20px;
             font-size: 15px;
             color: #555;
-        }
-
-        .highlight-text {
-            color: #6a1b9a;
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin: 20px 0;
         }
 
         /* --- Buttons --- */
@@ -285,7 +278,6 @@
         /* --- Footer Note --- */
         .footer-note {
             font-size: 12px;
-            /* CHANGED TO BLUE THEME */
             color: #0062FF; 
             background-color: #cce5ff;
             padding: 10px;
@@ -293,7 +285,6 @@
             display: inline-block;
         }
 
-        /* --- Bottom Spacer --- */
         .bottom-spacer {
             height: 3rem;
             width: 100%;
@@ -303,9 +294,10 @@
 <body>
 
     <div class="container">
-        <h1>CCA Rapid Swiss Battle - 25</h1>
+        <h1 id="tourney-title">CCA Rapid Swiss Battle - 25</h1>
 
-        <p class="sinhala-text">Tournament Details පිටුවේ ඇති උපදෙස් අනුව Lichess හි ලියාපදිංචි වී අපගේ Lichess Team එකට සම්බන්ධ වූ ඔබට ජනවාරි මස 04 වන ඉරිදා පැවැත්වෙන <strong>CCA Rapid Swiss Battle - 25</strong> තරඟය සඳහා සහභාගී වෙන්න පුළුවන්!</p>
+        <p class="sinhala-text" id="tourney-desc">
+            </p>
         
         <a href="https://lichess.org/swiss/SekLrxih" id="join-cta" class="cta-button" target="_blank"><span>Join Now </span></a>
 
@@ -328,12 +320,11 @@
             </div>
         </div>
 
-        <div id="tournament-status">
-            </div>
+        <div id="tournament-status"></div>
 
         <div class="details-box">
             <ul class="details-list">
-                <li><span class="sinhala-text">දිනය</span> <strong>2026 / 01 / 04</strong></li>
+                <li><span class="sinhala-text">දිනය</span> <strong id="tourney-date-display">2026 / 01 / 04</strong></li>
                 <li><span class="sinhala-text">වේලාව</span> <strong>සවස 6.00</strong></li>
                 <li><span class="sinhala-text">තරඟ වට ගණන</span> <strong>05</strong></li>
                 <li><span class="sinhala-text">කාලය (Time Control)</span> <strong>10min + 5sec (Rapid)</strong></li>
@@ -341,7 +332,7 @@
             </ul>
         </div>
 
-        <img src="https://imgur.com/61C0fXC.jpg" alt="Chess Tournament" class="custom-image">
+        <img src="" alt="Chess Tournament" class="custom-image" id="tourney-img">
 
         <div class="skills-section">
             <div class="skills-title">Key Chess Skills (Rapid)</div>
@@ -395,63 +386,144 @@
     </div>
 
     <script>
-        // --- CONFIGURATION ---
+        /** * --- AUTOMATION CONFIGURATION ---
+         * Update the Image links below for each month.
+         */
         
-        // SET TARGET: Jan 04, 2026 6:00 PM (18:00)
-        const tournamentStartDate = new Date("Jan 04, 2026 18:00:00").getTime(); 
+        const tournamentImages = [
+            "https://i.postimg.cc/bJrsK4Nz/04.jpg", // January
+            "https://i.postimg.cc/V6vd32L8/1.jpg", // February
+            "https://i.postimg.cc/PxJPB0f9/1_(2).jpg", // March (Update this)
+            "https://i.postimg.cc/mDkt0K22/05.jpg", // April (Update this)
+            "https://i.postimg.cc/KzjRdCvF/3.jpg",   // May (Update this)
+            "https://i.postimg.cc/zBvV94DM/7.jpg",  // June (Update this)
+            "https://i.postimg.cc/HLBrvTHH/5.jpg",  // July (Update this)
+            "https://i.postimg.cc/B6bXdRQ3/2.jpg",   // August (Update this)
+            "https://i.postimg.cc/85cjqxk2/6.jpg",   // September (Update this)
+            "https://i.postimg.cc/j52LGBdS/4.jpg",   // October (Update this)
+            "https://i.postimg.cc/ZRnC1XKt/1_(3).jpg",   // November (Update this)
+            "https://i.postimg.cc/Jn0G9S4w/6_(2).jpg"    // December (Update this)
+        ];
 
-        const tournamentDuration = 2 * 60 * 60 * 1000; // 2 Hours in milliseconds
+        const sinhalaMonths = [
+            "ජනවාරි", "පෙබරවාරි", "මාර්තු", "අප්‍රේල්", "මැයි", "ජූනි", 
+            "ජූලි", "අගෝස්තු", "සැප්තැම්බර්", "ඔක්තෝබර්", "නොවැම්බර්", "දෙසැම්බර්"
+        ];
 
-        const countdownContainer = document.getElementById("countdown-container");
-        const statusContainer = document.getElementById("tournament-status");
-        // Get the Join button element
-        const joinButton = document.getElementById("join-cta");
-
-        const x = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = tournamentStartDate - now;
-
-            if (distance > 0) {
-                // --- COUNTDOWN ACTIVE ---
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
-                document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
-                document.getElementById("mins").innerHTML = minutes < 10 ? "0" + minutes : minutes;
-                document.getElementById("secs").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+        // --- HELPER FUNCTION: Get 1st Sunday of a specific Month/Year ---
+        function getFirstSunday(year, monthIndex) {
+            // Set date to the 1st of the month at 18:00 (6 PM)
+            let date = new Date(year, monthIndex, 1, 18, 0, 0);
             
-            } else {
-                // --- COUNTDOWN ENDED ---
-                countdownContainer.style.display = "none";
-                statusContainer.style.display = "block";
+            // Get day of week (0 = Sunday, 1 = Monday, etc.)
+            let day = date.getDay();
+            
+            // Calculate days to add to reach the first Sunday
+            let diff = (day === 0) ? 0 : 7 - day;
+            
+            date.setDate(date.getDate() + diff);
+            return date;
+        }
 
-                const timeSinceStart = now - tournamentStartDate;
+        // --- MAIN LOGIC ---
+        function initializeTournament() {
+            let now = new Date();
+            let currentYear = now.getFullYear();
+            let currentMonth = now.getMonth(); // 0-11
 
-                if (timeSinceStart < tournamentDuration) {
-                    // Tournament Started (Green)
-                    statusContainer.innerHTML = "Tournament Started";
-                    statusContainer.className = "status-started"; 
-                } else {
-                    // Tournament Finished (Black)
-                    statusContainer.innerHTML = "Tournament Finished";
-                    statusContainer.className = "status-finished";
+            // 1. Determine the target tournament date for THIS calendar month
+            // We do NOT check if it has passed. We strictly stay in the current month.
+            let targetDate = getFirstSunday(currentYear, currentMonth);
+
+            // Tournament duration (2 hours)
+            const tournamentDuration = 2 * 60 * 60 * 1000; 
+
+            // 2. Calculate Tournament Number
+            // Base: January 2026 is #25.
+            let baseYear = 2026;
+            let baseNumber = 25;
+            let monthDifference = ((currentYear - baseYear) * 12) + currentMonth;
+            let tournamentNumber = baseNumber + monthDifference;
+
+            // 3. Format Strings
+            let sinhalaMonthName = sinhalaMonths[currentMonth];
+            let dateNum = targetDate.getDate();
+            let paddedDateNum = dateNum < 10 ? '0' + dateNum : dateNum;
+            let paddedMonthNum = (currentMonth + 1) < 10 ? '0' + (currentMonth + 1) : (currentMonth + 1);
+            
+            let fullDateString = `${currentYear} / ${paddedMonthNum} / ${paddedDateNum}`;
+            let titleString = `CCA Rapid Swiss Battle - ${tournamentNumber}`;
+            
+            let descriptionHTML = `Tournament Details පිටුවේ ඇති උපදෙස් අනුව Lichess හි ලියාපදිංචි වී අපගේ Lichess Team එකට සම්බන්ධ වූ ඔබට ${sinhalaMonthName} මස ${paddedDateNum} වන ඉරිදා පැවැත්වෙන <strong>CCA Rapid Swiss Battle - ${tournamentNumber}</strong> තරඟය සඳහා සහභාගී වෙන්න පුළුවන්!`;
+
+            // 4. Update DOM Elements
+            document.getElementById('tourney-title').innerText = titleString;
+            document.getElementById('tourney-desc').innerHTML = descriptionHTML;
+            document.getElementById('tourney-date-display').innerText = fullDateString;
+            
+            // Set Image
+            document.getElementById('tourney-img').src = tournamentImages[currentMonth % 12];
+
+            // 5. Start Countdown
+            startCountdown(targetDate, tournamentDuration);
+        }
+
+        // --- COUNTDOWN FUNCTION ---
+        function startCountdown(targetDate, duration) {
+            const countdownContainer = document.getElementById("countdown-container");
+            const statusContainer = document.getElementById("tournament-status");
+            const joinButton = document.getElementById("join-cta");
+            const tournamentStartTime = targetDate.getTime();
+
+            const x = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = tournamentStartTime - now;
+
+                if (distance > 0) {
+                    // --- COUNTDOWN ACTIVE (Upcoming Tournament in current month) ---
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+                    document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+                    document.getElementById("mins").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+                    document.getElementById("secs").innerHTML = seconds < 10 ? "0" + seconds : seconds;
                     
-                    // --- NEW LOGIC: Hide the Join Button ---
-                    if(joinButton) {
-                        joinButton.style.display = "none";
+                    statusContainer.style.display = "none";
+                    countdownContainer.style.display = "flex";
+                
+                } else {
+                    // --- COUNTDOWN ENDED (Tournament Started or Finished) ---
+                    countdownContainer.style.display = "none";
+                    statusContainer.style.display = "block";
+
+                    const timeSinceStart = now - tournamentStartTime;
+
+                    if (timeSinceStart < duration) {
+                        // Tournament Started (Green Box)
+                        statusContainer.innerHTML = "Tournament Started";
+                        statusContainer.className = "status-started"; 
+                    } else {
+                        // Tournament Finished (Black Box)
+                        statusContainer.innerHTML = "Tournament Finished";
+                        statusContainer.className = "status-finished";
+                        
+                        // Hide Join Button after finish
+                        if(joinButton) {
+                            joinButton.style.display = "none";
+                        }
+                        
+                        clearInterval(x);
                     }
-
-                    clearInterval(x);
                 }
-            }
-        }, 1000);
+            }, 1000);
+        }
+
+        // Run the initialization
+        initializeTournament();
+
     </script>
-
 </body>
-
 </html>
-
-
