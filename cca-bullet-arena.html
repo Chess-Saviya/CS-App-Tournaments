@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CCA Monthly Bullet Arena</title>
+    <title>CCA Monthly Bullet Arena - May</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yaldevi:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -294,10 +294,12 @@
 <body>
 
     <div class="container">
-        <h1 id="tourney-title">CCA Monthly Bullet Arena - JANUARY</h1>
+        <!-- HARDCODED FOR MAY -->
+        <h1 id="tourney-title">CCA Monthly Bullet Arena - MAY</h1>
 
         <p class="sinhala-text" id="tourney-desc">
-            </p>
+            Tournament Details පිටුවේ ඇති උපදෙස් අනුව Lichess හි ලියාපදිංචි වී අපගේ Lichess Team එකට සම්බන්ධ වූ ඔබට මැයි මස 24 වන ඉරිදා පැවැත්වෙන <strong>CCA Monthly Bullet Arena</strong> තරඟය සඳහා සහභාගී වෙන්න පුළුවන්!
+        </p>
         
         <a href="https://lichess.org/tournament/8e1f12N6" id="join-cta" class="cta-button" target="_blank"><span>Join Now </span></a>
 
@@ -324,14 +326,16 @@
 
         <div class="details-box">
             <ul class="details-list">
-                <li><span class="sinhala-text">දිනය</span> <strong id="tourney-date-display">2026 / 01 / 25</strong></li>
+                <!-- HARDCODED DATE FOR MAY 24 -->
+                <li><span class="sinhala-text">දිනය</span> <strong id="tourney-date-display">2026 / 05 / 24</strong></li>
                 <li><span class="sinhala-text">වේලාව</span> <strong>සවස 7.00 සිට 7.30 දක්වා</strong></li>
                 <li><span class="sinhala-text">තරඟ කාලය</span> <strong>30 min</strong></li>
                 <li><span class="sinhala-text">තරඟ වටයක් සඳහා හිමිවන කාලය</span> <strong>1min + 0sec (Bullet)</strong></li>
             </ul>
         </div>
 
-        <img src="" alt="Chess Tournament" class="custom-image" id="tourney-img">
+        <!-- HARDCODED MAY IMAGE -->
+        <img src="https://i.postimg.cc/tCqffm7H/31.jpg" alt="Chess Tournament" class="custom-image" id="tourney-img">
 
         <div class="skills-section">
             <div class="skills-title">Key Chess Skills (Bullet)</div>
@@ -385,89 +389,16 @@
     </div>
 
     <script>
-        /** * --- AUTOMATION CONFIGURATION ---
-         * Update the Image links below for each month.
-         */
+        // --- HARDCODED FOR MAY 24th AT 7:00 PM ---
+        // Note: JavaScript months are 0-indexed. 0 = Jan, 4 = May.
+        // Date format: Year, Month Index, Day, Hour (24H format), Minute, Second
+        const targetDate = new Date(2026, 4, 24, 19, 0, 0); 
         
-        const tournamentImages = [
-            "https://i.postimg.cc/nrRsnPJR/25.jpg", // January (Provided)
-            "https://i.postimg.cc/VLKTcB0x/22.jpg", // February (Provided)
-            "https://i.postimg.cc/YqrVVy05/29.jpg", // March (Update this)
-            "https://i.postimg.cc/KvGVVsjJ/26.jpg", // April (Update this)
-            "https://i.postimg.cc/tCqffm7H/31.jpg",   // May (Update this)
-            "https://i.postimg.cc/TYdSSH1N/28.jpg",  // June (Update this)
-            "https://i.postimg.cc/ZKbggDn8/26_(2).jpg",  // July (Update this)
-            "https://i.postimg.cc/xTf77Fqr/30.jpg",   // August (Update this)
-            "https://i.postimg.cc/kXJZZhG1/27.jpg",   // September (Update this)
-            "https://i.postimg.cc/9FLSjtq5/25_(2).jpg",   // October (Update this)
-            "https://i.postimg.cc/VLfTTHv3/29_(2).jpg",   // November (Update this)
-            "https://i.postimg.cc/YqrVVy0d/27_(2).jpg"    // December (Update this)
-        ];
+        // Tournament duration (30 Minutes)
+        const tournamentDuration = 30 * 60 * 1000; 
 
-        const sinhalaMonths = [
-            "ජනවාරි", "පෙබරවාරි", "මාර්තු", "අප්‍රේල්", "මැයි", "ජූනි", 
-            "ජූලි", "අගෝස්තු", "සැප්තැම්බර්", "ඔක්තෝබර්", "නොවැම්බර්", "දෙසැම්බර්"
-        ];
-        
-        const englishMonths = [
-            "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
-            "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
-        ];
-
-        // --- HELPER FUNCTION: Get LAST Sunday of a specific Month/Year @ 7:00 PM ---
-        function getLastSunday(year, monthIndex) {
-            // Get the last day of the current month
-            // new Date(year, monthIndex + 1, 0) gives the last day of monthIndex
-            let endOfMonth = new Date(year, monthIndex + 1, 0, 19, 0, 0);
-            
-            // Get the day of the week (0 = Sunday, 1 = Monday, ... 6 = Saturday)
-            let day = endOfMonth.getDay(); 
-            
-            // Subtract 'day' from the date to get the previous (or current) Sunday
-            // Example: If Last day is Tuesday (2), we subtract 2 days to get Sunday.
-            // Example: If Last day is Sunday (0), we subtract 0 days.
-            endOfMonth.setDate(endOfMonth.getDate() - day);
-            
-            return endOfMonth;
-        }
-
-        // --- MAIN LOGIC ---
-        function initializeTournament() {
-            let now = new Date();
-            let currentYear = now.getFullYear();
-            let currentMonth = now.getMonth(); // 0-11
-
-            // 1. Determine the target tournament date for THIS calendar month
-            // We calculate the LAST Sunday of the CURRENT month
-            let targetDate = getLastSunday(currentYear, currentMonth);
-
-            // Tournament duration (30 Minutes)
-            const tournamentDuration = 30 * 60 * 1000; 
-
-            // 2. Format Strings
-            let sinhalaMonthName = sinhalaMonths[currentMonth];
-            let englishMonthName = englishMonths[currentMonth];
-            
-            let dateNum = targetDate.getDate();
-            let paddedDateNum = dateNum < 10 ? '0' + dateNum : dateNum;
-            let paddedMonthNum = (currentMonth + 1) < 10 ? '0' + (currentMonth + 1) : (currentMonth + 1);
-            
-            let fullDateString = `${currentYear} / ${paddedMonthNum} / ${paddedDateNum}`;
-            let titleString = `CCA Monthly Bullet Arena - ${englishMonthName}`;
-            
-            let descriptionHTML = `Tournament Details පිටුවේ ඇති උපදෙස් අනුව Lichess හි ලියාපදිංචි වී අපගේ Lichess Team එකට සම්බන්ධ වූ ඔබට ${sinhalaMonthName} මස ${paddedDateNum} වන ඉරිදා පැවැත්වෙන <strong>CCA Monthly Bullet Arena</strong> තරඟය සඳහා සහභාගී වෙන්න පුළුවන්!`;
-
-            // 3. Update DOM Elements
-            document.getElementById('tourney-title').innerText = titleString;
-            document.getElementById('tourney-desc').innerHTML = descriptionHTML;
-            document.getElementById('tourney-date-display').innerText = fullDateString;
-            
-            // Set Image
-            document.getElementById('tourney-img').src = tournamentImages[currentMonth % 12];
-
-            // 4. Start Countdown
-            startCountdown(targetDate, tournamentDuration);
-        }
+        // Start Countdown immediately
+        startCountdown(targetDate, tournamentDuration);
 
         // --- COUNTDOWN FUNCTION ---
         function startCountdown(targetDate, duration) {
@@ -481,7 +412,7 @@
                 const distance = tournamentStartTime - now;
 
                 if (distance > 0) {
-                    // --- COUNTDOWN ACTIVE (Upcoming Tournament in current month) ---
+                    // --- COUNTDOWN ACTIVE ---
                     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -496,18 +427,18 @@
                     countdownContainer.style.display = "flex";
                 
                 } else {
-                    // --- COUNTDOWN ENDED (Tournament Started or Finished) ---
+                    // --- COUNTDOWN ENDED ---
                     countdownContainer.style.display = "none";
                     statusContainer.style.display = "block";
 
                     const timeSinceStart = now - tournamentStartTime;
 
                     if (timeSinceStart < duration) {
-                        // Tournament Started (Red Box)
+                        // Tournament Started
                         statusContainer.innerHTML = "Tournament Started";
                         statusContainer.className = "status-started"; 
                     } else {
-                        // Tournament Finished (Black Box)
+                        // Tournament Finished
                         statusContainer.innerHTML = "Tournament Finished";
                         statusContainer.className = "status-finished";
                         
@@ -521,11 +452,6 @@
                 }
             }, 1000);
         }
-
-        // Run the initialization
-        initializeTournament();
-
     </script>
 </body>
 </html>
-
