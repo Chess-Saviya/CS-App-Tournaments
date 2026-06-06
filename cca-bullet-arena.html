@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CCA Monthly Bullet Arena - May</title>
+    <title>CCA Rapid Swiss Battle - 25</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yaldevi:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -41,7 +42,7 @@
 
         /* --- Typography --- */
         h1 {
-            color: #DC0001; /* RED THEME */
+            color: #DC0001; /* UPDATED TO RED */
             margin-top: 0;
             font-size: 32px;
             text-transform: uppercase;
@@ -56,10 +57,18 @@
             color: #555;
         }
 
+        .highlight-text {
+            color: #6a1b9a;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+
         /* --- Buttons --- */
         .cta-button {
             display: inline-block;
             border-radius: 50px;
+            /* UPDATED TO RED GRADIENT */
             background: linear-gradient(135deg, #DC0001, #a30001); 
             border: none;
             color: #FFFFFF;
@@ -69,6 +78,7 @@
             text-decoration: none;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            /* UPDATED SHADOW COLOR */
             box-shadow: 0 4px 15px rgba(220, 0, 1, 0.3); 
             margin-bottom: 20px;
         }
@@ -90,6 +100,7 @@
 
         .cta-button:hover {
             transform: translateY(-2px);
+            /* UPDATED SHADOW COLOR */
             box-shadow: 0 6px 20px rgba(220, 0, 1, 0.4); 
         }
 
@@ -113,7 +124,7 @@
         }
 
         .time-box {
-            background-color: #DC0001; /* RED THEME */
+            background-color: #DC0001; /* UPDATED TO RED */
             color: white;
             width: 75px;
             height: 75px;
@@ -153,8 +164,8 @@
         }
 
         .status-started {
-            color: #DC0001; /* RED THEME */
-            border-color: #DC0001; 
+            color: #DC0001; /* UPDATED TO RED */
+            border-color: #DC0001; /* UPDATED TO RED */
         }
 
         .status-finished {
@@ -165,7 +176,7 @@
         /* --- Details List --- */
         .details-box {
             background-color: #f9f9f9;
-            border-left: 5px solid #DC0001; /* RED THEME */
+            border-left: 5px solid #DC0001; /* UPDATED TO RED */
             padding: 20px;
             border-radius: 8px;
             text-align: left;
@@ -238,7 +249,7 @@
         .progress-bar-fill {
             height: 100%;
             border-radius: 10px;
-            background-color: #DC0001; /* RED THEME */
+            background-color: #DC0001; /* UPDATED TO RED */
             width: 0;
             
             /* Animation Logic */
@@ -285,6 +296,7 @@
             display: inline-block;
         }
 
+        /* --- Bottom Spacer --- */
         .bottom-spacer {
             height: 3rem;
             width: 100%;
@@ -294,14 +306,11 @@
 <body>
 
     <div class="container">
-        <!-- HARDCODED FOR MAY -->
-        <h1 id="tourney-title">CCA Monthly Bullet Arena - MAY</h1>
+        <h1>CCA Monthly Bullet Arena - JANUARY</h1>
 
-        <p class="sinhala-text" id="tourney-desc">
-            Tournament Details පිටුවේ ඇති උපදෙස් අනුව Lichess හි ලියාපදිංචි වී අපගේ Lichess Team එකට සම්බන්ධ වූ ඔබට මැයි මස 24 වන ඉරිදා පැවැත්වෙන <strong>CCA Monthly Bullet Arena</strong> තරඟය සඳහා සහභාගී වෙන්න පුළුවන්!
-        </p>
+        <p class="sinhala-text">Tournament Details පිටුවේ ඇති උපදෙස් අනුව Lichess හි ලියාපදිංචි වී අපගේ Lichess Team එකට සම්බන්ධ වූ ඔබට ජනවාරි මස 25 වන ඉරිදා පැවැත්වෙන <strong>CCA Monthly Bullet Arena</strong> තරඟය සඳහා සහභාගී වෙන්න පුළුවන්!</p>
         
-        <a href="https://lichess.org/tournament/J4JlSzeA" id="join-cta" class="cta-button" target="_blank"><span>Join Now </span></a>
+        <a href="https://lichess.org/tournament/s2dUzA7a" id="join-cta" class="cta-button" target="_blank"><span>Join Now </span></a>
 
         <div id="countdown-container">
             <div class="time-box">
@@ -322,20 +331,19 @@
             </div>
         </div>
 
-        <div id="tournament-status"></div>
+        <div id="tournament-status">
+            </div>
 
         <div class="details-box">
             <ul class="details-list">
-                <!-- HARDCODED DATE FOR MAY 24 -->
-                <li><span class="sinhala-text">දිනය</span> <strong id="tourney-date-display">2026 / 05 / 24</strong></li>
+                <li><span class="sinhala-text">දිනය</span> <strong>2026 / 01 / 25</strong></li>
                 <li><span class="sinhala-text">වේලාව</span> <strong>සවස 7.00 සිට 7.30 දක්වා</strong></li>
                 <li><span class="sinhala-text">තරඟ කාලය</span> <strong>30 min</strong></li>
                 <li><span class="sinhala-text">තරඟ වටයක් සඳහා හිමිවන කාලය</span> <strong>1min + 0sec (Bullet)</strong></li>
             </ul>
         </div>
 
-        <!-- HARDCODED MAY IMAGE -->
-        <img src="https://i.postimg.cc/FHPGSYhT/May.jpg" alt="Chess Tournament" class="custom-image" id="tourney-img">
+        <img src="https://imgur.com/27lrocR.jpg" alt="Chess Tournament" class="custom-image">
 
         <div class="skills-section">
             <div class="skills-title">Key Chess Skills (Bullet)</div>
@@ -389,69 +397,61 @@
     </div>
 
     <script>
-        // --- HARDCODED FOR MAY 24th AT 7:00 PM ---
-        // Note: JavaScript months are 0-indexed. 0 = Jan, 4 = May.
-        // Date format: Year, Month Index, Day, Hour (24H format), Minute, Second
-        const targetDate = new Date(2026, 4, 24, 19, 0, 0); 
+        // --- CONFIGURATION ---
         
-        // Tournament duration (30 Minutes)
-        const tournamentDuration = 30 * 60 * 1000; 
+        // SET TARGET: Jan 25, 2026 7:00 PM (19:00)
+        const tournamentStartDate = new Date("Jan 25, 2026 19:00:00").getTime(); 
 
-        // Start Countdown immediately
-        startCountdown(targetDate, tournamentDuration);
+        // UPDATED: Duration set to 30 minutes
+        const tournamentDuration = 30 * 60 * 1000; // 30 Minutes in milliseconds
 
-        // --- COUNTDOWN FUNCTION ---
-        function startCountdown(targetDate, duration) {
-            const countdownContainer = document.getElementById("countdown-container");
-            const statusContainer = document.getElementById("tournament-status");
-            const joinButton = document.getElementById("join-cta");
-            const tournamentStartTime = targetDate.getTime();
+        const countdownContainer = document.getElementById("countdown-container");
+        const statusContainer = document.getElementById("tournament-status");
 
-            const x = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = tournamentStartTime - now;
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = tournamentStartDate - now;
 
-                if (distance > 0) {
-                    // --- COUNTDOWN ACTIVE ---
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            if (distance > 0) {
+                // --- COUNTDOWN ACTIVE ---
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
-                    document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
-                    document.getElementById("mins").innerHTML = minutes < 10 ? "0" + minutes : minutes;
-                    document.getElementById("secs").innerHTML = seconds < 10 ? "0" + seconds : seconds;
-                    
-                    statusContainer.style.display = "none";
-                    countdownContainer.style.display = "flex";
-                
+                document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+                document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+                document.getElementById("mins").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById("secs").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+            
+            } else {
+                // --- COUNTDOWN ENDED ---
+                countdownContainer.style.display = "none";
+                statusContainer.style.display = "block";
+
+                const timeSinceStart = now - tournamentStartDate;
+
+                if (timeSinceStart < tournamentDuration) {
+                    // Tournament Started (Red)
+                    statusContainer.innerHTML = "Tournament Started";
+                    statusContainer.className = "status-started"; 
                 } else {
-                    // --- COUNTDOWN ENDED ---
-                    countdownContainer.style.display = "none";
-                    statusContainer.style.display = "block";
+                    // Tournament Finished (Black)
+                    statusContainer.innerHTML = "Tournament Finished";
+                    statusContainer.className = "status-finished";
 
-                    const timeSinceStart = now - tournamentStartTime;
-
-                    if (timeSinceStart < duration) {
-                        // Tournament Started
-                        statusContainer.innerHTML = "Tournament Started";
-                        statusContainer.className = "status-started"; 
-                    } else {
-                        // Tournament Finished
-                        statusContainer.innerHTML = "Tournament Finished";
-                        statusContainer.className = "status-finished";
-                        
-                        // Hide Join Button after finish
-                        if(joinButton) {
-                            joinButton.style.display = "none";
-                        }
-                        
-                        clearInterval(x);
+                    // --- NEW LOGIC: Hide the Join Button ---
+                    const joinButton = document.getElementById("join-cta");
+                    if(joinButton) {
+                        joinButton.style.display = "none";
                     }
+
+                    clearInterval(x);
                 }
-            }, 1000);
-        }
+            }
+        }, 1000);
     </script>
+
 </body>
+
 </html>
