@@ -300,6 +300,15 @@
         document.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
         });
+
+        fetch('data.json')
+  .then(response => response.json())
+  .then(data => {
+      document.getElementById('dynamic-name').innerText = data.rapid_swiss.winnersName;
+      document.getElementById('dynamic-image').src = data.rapid_swiss.winnersImageLink;
+      document.getElementById('dynamic-link').href = data.rapid_swiss.winnersLichessLink;
+  })
+  .catch(error => console.error('Error fetching data:', error));
     </script>
 </body>
 
