@@ -207,13 +207,13 @@
             <span>Tournament Winners</span>
         </div>
 
-        <h1>CCA Blitz Swiss Battle - 65</h1>
+        <h1 id="dynamic-name">CCA Blitz Swiss Battle - 65</h1>
 
         <div class="results-image-container">
-            <img src="https://i.postimg.cc/8crTVzF7/Blitz-Winners.jpg" alt="Tournament Results" class="results-image">
+            <img src="..." id="dynamic-image" class="results-image">
         </div>
 
-        <a href="https://lichess.org/swiss/Lod8XikM" target="_blank" class="cta-button">
+        <a href="..." id="dynamic-link" target="_blank" class="cta-button">
             View Full Results
             <i class="fas fa-arrow-right"></i>
         </a>
@@ -400,6 +400,27 @@
         document.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
         });
+
+        // Fetch with a cache-busting timestamp parameter
+fetch('data.json?v=' + Date.now(), { cache: 'no-store' })
+  .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+  })
+  .then(data => {
+      if (data && data.blitz_swiss) {
+          if (data.blitz_swiss.winnersName) {
+              document.getElementById('dynamic-name').innerText = data.blitz_swiss.winnersName;
+          }
+          if (data.blitz_swiss.winnersImageLink) {
+              document.getElementById('dynamic-image').src = data.blitz_swiss.winnersImageLink;
+          }
+          if (data.blitz_swiss.winnersLichessLink) {
+              document.getElementById('dynamic-link').href = data.blitz_swiss.winnersLichessLink;
+          }
+      }
+  })
+  .catch(error => console.error('Error fetching data:', error));
     </script>
 </body>
 </html>
