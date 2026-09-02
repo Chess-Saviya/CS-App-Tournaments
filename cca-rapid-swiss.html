@@ -524,10 +524,15 @@
         // Run the initialization
         initializeTournament();
 
-        fetch('data.json')
-  .then(response => response.json())
+        fetch('data.json?v=' + Date.now(), { cache: 'no-store' })
+  .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+  })
   .then(data => {
-      document.getElementById('join-cta').href = data.rapid_swiss.automatedLichessLink;
+      if (data && data.rapid_swiss && data.rapid_swiss.automatedLichessLink) {
+          document.getElementById('join-cta').href = data.rapid_swiss.automatedLichessLink;
+      }
   })
   .catch(error => console.error('Error fetching data:', error));
     </script>
