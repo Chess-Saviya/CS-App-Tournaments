@@ -1,0 +1,26 @@
+{
+  "rapid_swiss": {
+    "automatedLichessLink": "https://lichess.org/swiss/YOUR_MONTHLY_LINK",
+    "winnersName": "CCA Rapid Swiss Battle - 32",
+    "winnersImageLink": "https://i.postimg.cc/R0mhtMQv/Rapid-Winners-(1).jpg",
+    "winnersLichessLink": "https://lichess.org/swiss/fOvDoCEb"
+  },
+  "blitz_swiss": {
+    "automatedLichessLink": "",
+    "winnersName": "",
+    "winnersImageLink": "",
+    "winnersLichessLink": ""
+  },
+  "bullet_arena": {
+    "automatedLichessLink": "",
+    "winnersName": "",
+    "winnersImageLink": "",
+    "winnersLichessLink": ""
+  },
+  "blitz_arena": {
+    "automatedLichessLink": "",
+    "winnersName": "",
+    "winnersImageLink": "",
+    "winnersLichessLink": ""
+  }
+}
