@@ -210,13 +210,13 @@
             <span>Tournament Winners</span>
         </div>
 
-        <h1>CCA Monthly Bullet Arena - JULY</h1>
+        <h1 id="dynamic-name">CCA Monthly Bullet Arena - July</h1>
 
         <div class="results-image-container">
-            <img src="https://i.postimg.cc/x8XWbpnM/Bullet-Arena-Winners-(1).jpg" alt="Tournament Results" class="results-image">
+            <img src="..." id="dynamic-image" class="results-image">
         </div>
 
-        <a href="https://lichess.org/tournament/hoJTBofl" target="_blank" class="cta-button">
+        <a href="..." id="dynamic-link" target="_blank" class="cta-button">
             View Full Results
             <i class="fas fa-arrow-right"></i>
         </a>
@@ -366,6 +366,27 @@
         document.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
         });
+
+        // Fetch with a cache-busting timestamp parameter
+fetch('data.json?v=' + Date.now(), { cache: 'no-store' })
+  .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+  })
+  .then(data => {
+      if (data && data.bullet_arena) {
+          if (data.bullet_arena.winnersName) {
+              document.getElementById('dynamic-name').innerText = data.bullet_arena.winnersName;
+          }
+          if (data.bullet_arena.winnersImageLink) {
+              document.getElementById('dynamic-image').src = data.bullet_arena.winnersImageLink;
+          }
+          if (data.bullet_arena.winnersLichessLink) {
+              document.getElementById('dynamic-link').href = data.bullet_arena.winnersLichessLink;
+          }
+      }
+  })
+  .catch(error => console.error('Error fetching data:', error));
     </script>
 </body>
 </html>
